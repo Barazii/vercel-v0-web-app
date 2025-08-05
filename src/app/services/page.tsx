@@ -1,11 +1,28 @@
+/**
+ * SERVICES PAGE
+ * 
+ * This is the main services listing page at /services
+ * It displays all available services in a clean, organized layout.
+ * 
+ * Structure:
+ * 1. Hero section with page title and description
+ * 2. Services grid showing all available services
+ * 3. Testimonials section for social proof
+ * 
+ * Each service card shows:
+ * - Service image, title, and description
+ * - Price and key features
+ * - "Learn More" button linking to detail page
+ */
 "use client"
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ArrowRight, CheckCircle, Star, Clock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { services } from "@/data/services"
+// Import animation and UI libraries
+import { motion } from "framer-motion"      // For smooth animations
+import Link from "next/link"                // For navigation between pages
+import { CheckCircle, Star } from "lucide-react"  // Icons for features and ratings
+import { Button } from "@/components/ui/button"   // Styled button component
+import { Badge } from "@/components/ui/badge"     // Small status badges
+import { services } from "@/data/services"        // Our services data
 
 export default function ServicesPage() {
   return (
@@ -68,10 +85,6 @@ export default function ServicesPage() {
                     </div>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                       <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {service.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                         4.9/5
                       </div>
@@ -79,7 +92,7 @@ export default function ServicesPage() {
                   </div>
 
                   <div className="mb-6">
-                    <h4 className="font-semibold mb-3">What's included:</h4>
+                    <h4 className="font-semibold mb-3">What&apos;s included:</h4>
                     <ul className="space-y-2">
                       {service.features.slice(0, 4).map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm">
@@ -164,7 +177,7 @@ export default function ServicesPage() {
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-6 italic">"{testimonial.content}"</p>
+                <p className="text-muted-foreground mb-6 italic">&quot;{testimonial.content}&quot;</p>
                 <div className="flex items-center">
                   <img 
                     src={testimonial.avatar} 

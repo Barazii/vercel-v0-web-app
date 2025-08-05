@@ -2,12 +2,11 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, CreditCard, Shield, Lock } from "lucide-react"
+import { X, CreditCard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
 import { Service } from "@/types/services"
 
 interface CheckoutModalProps {
@@ -52,8 +51,7 @@ export function CheckoutModal({ isOpen, onClose, service }: CheckoutModalProps) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           serviceId: service.id,
-          customerInfo: formData,
-          priceId: service.stripePriceId
+          customerInfo: formData
         })
       })
       
