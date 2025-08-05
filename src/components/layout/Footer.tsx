@@ -13,26 +13,17 @@ const socialLinks = [
 const navigationSections = {
   Content: [
     { name: "Articles", href: "/articles" },
-    { name: "Videos", href: "/videos" },
-    { name: "Podcasts", href: "/podcasts" },
   ],
   Work: [
-    { name: "Case Studies", href: "/case-studies" },
     { name: "Services", href: "/services" },
-    { name: "Testimonials", href: "/testimonials" },
-  ],
-  Connect: [
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "Newsletter", href: "/newsletter" },
   ],
 }
 
 export function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
+      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 max-w-6xl mx-auto">
           {/* Brand and Description */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center space-x-2">
@@ -78,7 +69,7 @@ export function Footer() {
           ))}
 
           {/* Newsletter Signup */}
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-sm font-semibold">Stay Updated</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Get the latest articles and insights delivered to your inbox.
@@ -88,7 +79,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 border-t pt-8 flex flex-col sm:flex-row justify-between items-center">
+        <div className="mt-12 border-t pt-8 flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Your Name. All rights reserved.
           </p>

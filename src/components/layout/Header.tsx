@@ -3,18 +3,11 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Menu, X, User, Briefcase, PenTool, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Menu, X, PenTool } from "lucide-react"
 
 const navigation = [
-  { name: "Home", href: "/" },
   { name: "Articles", href: "/articles", icon: PenTool },
-  { name: "Videos", href: "/videos" },
-  { name: "Podcasts", href: "/podcasts" },
-  { name: "Case Studies", href: "/case-studies", icon: Briefcase },
   { name: "Services", href: "/services" },
-  { name: "About", href: "/about", icon: User },
-  { name: "Contact", href: "/contact", icon: Mail },
 ]
 
 export function Header() {
@@ -43,13 +36,6 @@ export function Header() {
             </Link>
           ))}
         </nav>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Button asChild>
-            <Link href="/services">Hire Me</Link>
-          </Button>
-        </div>
 
         {/* Mobile menu button */}
         <button
@@ -82,13 +68,6 @@ export function Header() {
                   <span>{item.name}</span>
                 </Link>
               ))}
-              <div className="pt-4">
-                <Button asChild className="w-full">
-                  <Link href="/services" onClick={() => setIsOpen(false)}>
-                    Hire Me
-                  </Link>
-                </Button>
-              </div>
             </nav>
           </div>
         </motion.div>

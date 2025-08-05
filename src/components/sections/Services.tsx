@@ -42,24 +42,6 @@ const services = [
     ],
     popular: true,
     color: "green"
-  },
-  {
-    id: "journalism-services",
-    name: "Journalism Services",
-    price: "$1,500",
-    duration: "2-4 weeks",
-    description: "Professional journalism and storytelling for your business.",
-    features: [
-      "Investigative research",
-      "Article writing and editing",
-      "Interview coordination",
-      "Fact-checking and verification",
-      "Media outreach",
-      "Press release creation",
-      "Crisis communication support"
-    ],
-    popular: false,
-    color: "purple"
   }
 ]
 
@@ -77,13 +59,6 @@ const testimonials = [
     content: "Outstanding content strategy that perfectly captured our brand voice and drove real engagement.",
     rating: 5,
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
-  },
-  {
-    name: "Emma Rodriguez",
-    role: "Founder, HealthPlus",
-    content: "Professional journalism services helped us get featured in major publications. Incredible results!",
-    rating: 5,
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
   }
 ]
 
@@ -108,7 +83,7 @@ export function Services() {
           </motion.div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 max-w-4xl mx-auto">
             {services.map((service, index) => (
               <motion.div
                 key={service.id}
@@ -165,8 +140,8 @@ export function Services() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h3 className="text-2xl font-semibold text-center mb-12">What Clients Say</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <h3 className="text-2xl font-semibold text-center mb-12">What My Customers Say</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="bg-card border rounded-xl p-6">
                   <div className="flex items-center mb-4">
@@ -205,19 +180,12 @@ export function Services() {
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Every business is unique. Let's discuss your specific needs and create a tailored solution that drives real results.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg">
-                  <Link href="/contact">
-                    Schedule Consultation
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="/about">
-                    Learn More About Me
-                  </Link>
-                </Button>
-              </div>
+              <Button asChild size="lg">
+                <Link href="/services">
+                  View All Services
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

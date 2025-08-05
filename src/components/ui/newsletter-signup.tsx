@@ -1,19 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
-
-const newsletterSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  type: z.enum(["journalism", "ecommerce"]),
-})
-
-type NewsletterForm = z.infer<typeof newsletterSchema>
+import { useNewsletter } from "@/hooks/useSupabase"
+import { toast } from "@/hooks/use-toast"
 
 interface NewsletterSignupProps {
   className?: string
@@ -22,104 +13,97 @@ interface NewsletterSignupProps {
 }
 
 export function NewsletterSignup({ 
-  className, 
+  className = "", 
   type = "journalism",
   variant = "inline" 
 }: NewsletterSignupProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [email, setEmail] = useState("")
+  const { subscribe, loading, error, success, reset } = useNewsletter()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<NewsletterForm>({
-    resolver: zodResolver(newsletterSchema),
-    defaultValues: { 
-      type,
-      email: "",
-    },
-  })
-
-  const onSubmit = async (data: NewsletterForm) => {
-    setIsLoading(true)
-    try {
-      const response = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!email) {
+      toast({
+        title: "Email required",
+        description: "Please enter your email address",
+        variant: "destructive"
       })
-
-      if (response.ok) {
-        setIsSubscribed(true)
-        reset()
-      } else {
-        throw new Error("Failed to subscribe")
-      }
-    } catch (error) {
-      console.error("Newsletter subscription error:", error)
-    } finally {
-      setIsLoading(false)
+      return
     }
-  }
 
-  if (isSubscribed) {
-    return (
-      <div className={cn("text-center", className)}>
-        <p className="text-sm text-green-600 font-medium">
-          ✓ Successfully subscribed to {type} updates!
-        </p>
-      </div>
-    )
+    try {
+      await subscribe(email, type, "website")
+      toast({
+        title: "Success!",
+        description: "You've been subscribed to our newsletter"
+      })
+      setEmail("")
+      reset()
+    } catch (err) {
+      console.error("Newsletter subscription error:", err)
+      toast({
+        title: "Subscription failed",
+        description: error || "Something went wrong. Please try again.",
+        variant: "destructive"
+      })
+    }
   }
 
   if (variant === "card") {
     return (
-      <div className={cn("p-6 border rounded-lg bg-card", className)}>
-        <h3 className="text-lg font-semibold mb-2">
-          Subscribe to {type === "journalism" ? "Journalism" : "E-commerce"} Updates
-        </h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          Get the latest {type === "journalism" ? "articles and insights" : "case studies and tips"} 
-          delivered to your inbox.
-        </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-          <div>
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              {...register("email")}
-              className={errors.email ? "border-red-500" : ""}
-            />
-            {errors.email && (
-              <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
-            )}
-          </div>
-          <Button type="submit" disabled={isLoading} className="w-full">
-            {isLoading ? "Subscribing..." : "Subscribe"}
+      <div className={`space-y-4 ${className}`}>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <Input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+            className="w-full"
+          />
+          <Button 
+            type="submit" 
+            disabled={loading || !email}
+            className="w-full"
+          >
+            {loading ? "Subscribing..." : "Subscribe"}
           </Button>
         </form>
+        {error && (
+          <p className="text-sm text-red-600">{error}</p>
+        )}
+        {success && (
+          <p className="text-sm text-green-600">Successfully subscribed!</p>
+        )}
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn("flex gap-2", className)}>
-      <div className="flex-1">
+    <div className={`space-y-4 ${className}`}>
+      <form onSubmit={handleSubmit} className="flex space-x-2">
         <Input
           type="email"
           placeholder="Enter your email"
-          {...register("email")}
-          className={errors.email ? "border-red-500" : ""}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
+          className="flex-1"
         />
-        {errors.email && (
-          <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
-        )}
-      </div>
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? "..." : "Subscribe"}
-      </Button>
-    </form>
+        <Button 
+          type="submit" 
+          disabled={loading || !email}
+        >
+          {loading ? "..." : "Subscribe"}
+        </Button>
+      </form>
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
+      {success && (
+        <p className="text-sm text-green-600">Successfully subscribed!</p>
+      )}
+    </div>
   )
 }
