@@ -7,7 +7,15 @@ import { NewsletterSignup } from "@/components/ui/newsletter-signup"
 
 export function NewsletterCTA() {
   return (
-    <section className="py-24 bg-gradient-to-br from-primary/5 via-purple-50/50 to-background">
+    <section className="py-24 bg-gradient-to-br from-primary/5 via-purple-50/50 to-background relative">
+      {/* Enhanced Background decoration */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-10 left-1/4 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+        <div className="absolute bottom-10 right-1/4 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+        <div className="absolute top-1/2 left-10 w-56 h-56 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-15 animate-pulse animation-delay-6000"></div>
+        <div className="absolute top-1/3 right-10 w-48 h-48 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-pulse animation-delay-3500"></div>
+      </div>
+      
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div

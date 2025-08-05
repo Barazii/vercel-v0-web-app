@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, use } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowLeft, CheckCircle, Star, Clock, Shield, ArrowRight } from "lucide-react"
@@ -10,14 +10,15 @@ import { servicePackages, services } from "@/data/services"
 import { CheckoutModal } from "@/components/checkout/CheckoutModal"
 
 interface PackageDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default function PackageDetailPage({ params }: PackageDetailPageProps) {
   const [showCheckout, setShowCheckout] = useState(false)
-  const pkg = servicePackages.find(p => p.slug === params.slug)
+  const { slug } = use(params)
+  const pkg = servicePackages.find(p => p.slug === slug)
 
   if (!pkg) {
     return (

@@ -64,7 +64,14 @@ const testimonials = [
 
 export function Services() {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-background relative">
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-32 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-15 animate-pulse animation-delay-3000"></div>
+        <div className="absolute bottom-32 right-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-15 animate-pulse animation-delay-5000"></div>
+        <div className="absolute top-1/2 right-1/4 w-60 h-60 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-12 animate-pulse animation-delay-1500"></div>
+      </div>
+      
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -91,7 +98,7 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative bg-card border rounded-xl p-8 hover:shadow-lg transition-all duration-300 ${
+                className={`relative bg-card border rounded-xl p-8 hover:shadow-lg transition-all duration-300 flex flex-col h-full ${
                   service.popular ? 'border-primary shadow-md' : ''
                 }`}
               >
@@ -113,7 +120,7 @@ export function Services() {
                   <p className="text-muted-foreground mt-3">{service.description}</p>
                 </div>
 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-8 flex-grow">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
@@ -122,7 +129,7 @@ export function Services() {
                   ))}
                 </div>
 
-                <Button asChild className="w-full" variant={service.popular ? "default" : "outline"}>
+                <Button asChild className="w-full mt-auto">
                   <Link href={`/services/${service.id}`}>
                     Get Started
                     <ArrowRight className="ml-2 w-4 h-4" />

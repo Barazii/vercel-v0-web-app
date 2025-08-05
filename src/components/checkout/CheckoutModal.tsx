@@ -25,7 +25,6 @@ export function CheckoutModal({ isOpen, onClose, service }: CheckoutModalProps) 
     phone: '',
     company: '',
     projectDetails: '',
-    timeline: '',
     budget: service.price
   })
 
@@ -90,14 +89,14 @@ export function CheckoutModal({ isOpen, onClose, service }: CheckoutModalProps) 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4"
         onClick={onClose}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-background rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -200,27 +199,10 @@ export function CheckoutModal({ isOpen, onClose, service }: CheckoutModalProps) 
                   />
                 </div>
 
-                <div>
-                  <Label htmlFor="timeline">Preferred Timeline</Label>
-                  <Input
-                    id="timeline"
-                    name="timeline"
-                    value={formData.timeline}
-                    onChange={handleInputChange}
-                    placeholder="When would you like to start?"
-                  />
-                </div>
-
                 <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-semibold">{service.title}</h4>
-                      <p className="text-sm text-muted-foreground">{service.shortDescription}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold">${service.price}</div>
-                      <div className="text-sm text-muted-foreground">USD</div>
-                    </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">${service.price}</div>
+                    <div className="text-sm text-muted-foreground">USD</div>
                   </div>
                 </div>
 
@@ -265,29 +247,6 @@ export function CheckoutModal({ isOpen, onClose, service }: CheckoutModalProps) 
                     </Button>
                   </div>
                 </div>
-
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <h4 className="font-semibold mb-2">Order Summary</h4>
-                  <div className="flex items-center justify-between mb-2">
-                    <span>{service.title}</span>
-                    <span>${service.price}</span>
-                  </div>
-                  <div className="border-t pt-2 mt-2">
-                    <div className="flex items-center justify-between font-semibold">
-                      <span>Total</span>
-                      <span>${service.price} USD</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4" />
-                  <span>Your payment is secured with 256-bit SSL encryption</span>
-                </div>
-
-                <Button variant="outline" onClick={() => setStep('details')} className="w-full">
-                  Back to Details
-                </Button>
               </div>
             )}
           </div>

@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Github, Linkedin, Twitter, Instagram, Mail } from "lucide-react"
-import { NewsletterSignup } from "@/components/ui/newsletter-signup"
 
 const socialLinks = [
   { name: "GitHub", href: "https://github.com/yourusername", icon: Github },
@@ -10,30 +9,21 @@ const socialLinks = [
   { name: "Email", href: "mailto:contact@yourdomain.com", icon: Mail },
 ]
 
-const navigationSections = {
-  Content: [
-    { name: "Articles", href: "/articles" },
-  ],
-  Work: [
-    { name: "Services", href: "/services" },
-  ],
-}
-
 export function Footer() {
   return (
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Brand and Description */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center space-x-2">
+          <div className="text-center lg:text-left">
+            <Link href="/" className="flex items-center space-x-2 justify-center lg:justify-start">
               <span className="font-bold text-xl">Your Name</span>
             </Link>
-            <p className="mt-4 text-sm text-muted-foreground max-w-xs">
+            <p className="mt-4 text-sm text-muted-foreground max-w-xs mx-auto lg:mx-0">
               Journalist and E-commerce Consultant helping brands tell their stories 
               and grow their digital presence.
             </p>
-            <div className="mt-6 flex space-x-4">
+            <div className="mt-6 flex space-x-4 justify-center lg:justify-start">
               {socialLinks.map((item) => (
                 <Link
                   key={item.name}
@@ -47,34 +37,6 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-          </div>
-
-          {/* Navigation Links */}
-          {Object.entries(navigationSections).map(([section, links]) => (
-            <div key={section}>
-              <h3 className="text-sm font-semibold">{section}</h3>
-              <ul className="mt-4 space-y-2">
-                {links.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Newsletter Signup */}
-          <div className="lg:col-span-2">
-            <h3 className="text-sm font-semibold">Stay Updated</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Get the latest articles and insights delivered to your inbox.
-            </p>
-            <NewsletterSignup className="mt-4" />
           </div>
         </div>
 
